@@ -13,15 +13,15 @@ GROUP BY Status ;
 SELECT DISTINCT `Defensive Driving`
 FROM newdriverstatus n ;
 
--- Figuring out the distinct Defensive Driving column values.
+-- Figuring out the distinct Driver Exam column values.
 SELECT DISTINCT `Driver Exam`
 FROM newdriverstatus n ;
 
--- Figuring out the distinct Defensive Driving column values.
+-- Figuring out the distinct Medical Clearance Form column values.
 SELECT DISTINCT `Medical Clearance Form`
 FROM newdriverstatus n ;
 
--- Figuring out the distinct Defensive Driving column values.
+-- Figuring out the distinct Drug Test column values.
 SELECT DISTINCT `Drug Test`
 FROM newdriverstatus n ;
 

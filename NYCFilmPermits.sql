@@ -11,3 +11,8 @@ SELECT COUNT(*) AS Total_Permits ,
     END AS 'City_Boroughs'
 FROM film_permits fp 
 GROUP BY City_Boroughs ;
+
+-- Getting Total Activities within NYC by Category.
+SELECT Category , COUNT(Category)
+FROM film_permits fp 
+GROUP BY Category ;

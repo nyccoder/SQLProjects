@@ -22,13 +22,38 @@ VALUES 	(1 , 'Blank Space', 'Taylor Swift', 'Pop', '00:03:21', 1),
 
 -- Drop Artist Colum from Song Table as it is duplicate in Artist Table.
 ALTER TABLE Song 
-DROP COLUMN Artist;
+DROP COLUMN Artist ;
 	
 -- Query all songs with Genre where artists' name includes letter 'a'.
 SELECT Title , Genre
 FROM Song
 WHERE Artist_id
 IN (SELECT Artist_id 
-	FROM Artist a  
+	FROM Artist a
 	WHERE Name LIKE '%a%') ;
 	
+
+-- OVER function raw usage
+SELECT Title, Genre , COUNT(*) OVER()
+FROM Song s ;
+
+-- OVER function with partition 
+SELECT Genre , COUNT(*) OVER(PARTITION BY Genre) AS Genre_Total
+FROM Song s 
+ORDER BY Genre_Total ;
+
+-- RANK function raw usage
+SELECT Genre , RANK () OVER (
+	ORDER BY Genre
+) AS ranking
+FROM Song s;
+
+-- DENSE RANK function raw usage
+SELECT Genre , DENSE_RANK () OVER (
+	ORDER BY Genre
+) AS ranking
+FROM Song s;
+
+
+
+

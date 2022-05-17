@@ -334,7 +334,7 @@ WHERE sales_id NOT IN ( -- Must Choose NOT IN since it it TO remove WITH ALL sal
 )
 
 /*
- Table: Tree , Write an SQL query to report the type of each node in the tree.
+ Table: Tree , pb.608 , Write an SQL query to report the type of each node in the tree.
 +-------------+------+
 | Column Name | Type |
 +-------------+------+
@@ -353,6 +353,28 @@ CASE
     END AS type
 FROM tree
 order by id;
+
+/*
+ * pb. 620 , Not Boring Movies , Write an SQL query to report the movies with an odd-numbered ID and 
+ * a description that is not "boring".
+ * 
+ * Table: Cinema
++----------------+----------+
+| Column Name    | Type     |
++----------------+----------+
+| id             | int      |
+| movie          | varchar  |
+| description    | varchar  |
+| rating         | float    |
++----------------+----------+
+ */
+
+SELECT *
+FROM Cinema
+WHERE   id % 2 = 1 AND
+        description <> 'boring' 
+ORDER BY rating DESC
+;
 
 /* pb.626 , Write an SQL query to swap the seat id of every two consecutive students. 
 +-------------+---------+

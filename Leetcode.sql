@@ -287,6 +287,20 @@ GROUP BY class
 HAVING COUNT(class) >= 5
 ;
 
+/*
+ * pb.601 , Write an SQL query to display the records with three or more rows with consecutive 
+ * id's, and the number of people is greater than or equal to 100 for each.
+ * 
+ * 
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| visit_date    | date    |
+| people        | int     |
++---------------+---------+
+ */
+
 /* pb.607
  * Write an SQL query to report the names of all the salespersons 
  * who did not have any orders related to the company with the name "RED".

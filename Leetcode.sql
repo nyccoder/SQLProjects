@@ -127,7 +127,8 @@ WHERE
 SELECT email AS Email
 FROM Person
 GROUP BY email
-HAVING COUNT(email) > 1; -- HAVING will ONLY CHECK FROM Grouped email.
+HAVING COUNT(email) > 1
+; -- HAVING will ONLY CHECK FROM Grouped email.
 
 
 /* pb.183 , Write an SQL query to report all customers who never order anything.
@@ -194,7 +195,8 @@ IN
 DELETE a 
 FROM Person a , Person b
 WHERE   a.email = b.email AND 
-        a.id > b.id;
+        a.id > b.id
+  ;
 
        
 /* pb.197 Rising Temperature , Write an SQL query to find all dates' Id with higher temperatures compared to 
@@ -211,7 +213,8 @@ SELECT w2.id
 FROM Weather w1 , Weather w2
 WHERE   DATEDIFF (w2.recordDate , w1.recordDate) = 1 AND -- DATEDIFF func , the FIRST PARAMETER w2 date - 
 --second parameter w1 date. So, w2 is later date than w1 to get +1.
-        w1.temperature < w2.temperature;
+        w1.temperature < w2.temperature
+  ;
        
 
 /* pb.511 , Gameplay Analysis , Write an SQL query to report the first login date for each player.
@@ -228,7 +231,8 @@ WHERE   DATEDIFF (w2.recordDate , w1.recordDate) = 1 AND -- DATEDIFF func , the 
        
 SELECT player_id , MIN(event_date) AS first_login
 FROM Activity
-GROUP BY player_id ;
+GROUP BY player_id 
+;
 
 /* pb. 584. Find Customer Referee , Write an SQL query to report the IDs of the customer that are not 
  * referred by the customer with id = 2.
@@ -242,7 +246,8 @@ GROUP BY player_id ;
  */
 SELECT name
 FROM Customer
-WHERE referee_id != 2 OR referee_id is null
+WHERE referee_id != 2 OR referee_id is NULL
+;
 
 /* pb.595 , 
  * 
@@ -266,7 +271,8 @@ Write an SQL query to report the name, population, and area of the big countries
 SELECT name , population , area
 FROM World
 WHERE   area >= 3000000 OR
-        population >= 25000000;
+        population >= 25000000
+;
        
 
 /*
@@ -300,6 +306,21 @@ HAVING COUNT(class) >= 5
 | people        | int     |
 +---------------+---------+
  */
+
+SELECT DISTINCT s1.*
+FROM Stadium s1 , Stadium s2, Stadium s3
+WHERE s1.people >= 100 AND s2.people >= 100 AND s3.people >= 100
+AND
+(
+    (s1.id - s2.id = 1 AND s1.id - s3.id = 2 AND s2.id - s3.id = 1)
+    OR
+    (s2.id - s1.id = 1 AND s2.id - s3.id = 2 AND s1.id - s3.id = 1)
+    OR
+    (s3.id - s2.id = 1 AND s2.id - s1.id = 1 AND s3.id - s1.id = 2)
+) -- Each and every row Check from s1 , s2 , s3 it must always satisfy condition of at least three consecutive rows eiter from s1 or s2 or s3.
+ORDER BY s1.visit_date ASC
+;
+
 
 /* pb.607
  * Write an SQL query to report the names of all the salespersons 
@@ -345,7 +366,7 @@ WHERE sales_id NOT IN ( -- Must Choose NOT IN since it it TO remove WITH ALL sal
         FROM Company
         WHERE name = 'RED'
     )
-)
+);
 
 /*
  Table: Tree , pb.608 , Write an SQL query to report the type of each node in the tree.
@@ -407,6 +428,7 @@ ELSE id -- This IS LAST one coz LAST id IS NOT < total. Eg. 5 IS NOT leass than 
 END AS id , student
 FROM Seat
 ORDER BY id
+;
 
 /*
  pb.627 , Write an SQL query to swap all 'f' and 'm' values (i.e., change all 'f' values to 'm' and vice versa) 
@@ -445,7 +467,7 @@ SELECT actor_id , director_id
 FROM ActorDirector
 GROUP BY actor_id , director_id
 HAVING COUNT(*) >= 3
-
+;
 
 
 

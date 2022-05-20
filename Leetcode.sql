@@ -216,6 +216,48 @@ WHERE   DATEDIFF (w2.recordDate , w1.recordDate) = 1 AND -- DATEDIFF func , the 
         w1.temperature < w2.temperature
   ;
        
+ /* pb. 262, Trips and Users , Write a SQL query to find the cancellation rate of requests with unbanned 
+  * users (both client and driver must not be banned) each day between "2013-10-01" and "2013-10-03". 
+  * Round Cancellation Rate to two decimal points.
+  * Table: Trips
++-------------+----------+
+| Column Name | Type     |
++-------------+----------+
+| id          | int      |
+| client_id   | int      |
+| driver_id   | int      |
+| city_id     | int      |
+| status      | enum     |
+| request_at  | date     |     
++-------------+----------+
+
+Table: Users
++-------------+----------+
+| Column Name | Type     |
++-------------+----------+
+| users_id    | int      |
+| banned      | enum     |
+| role        | enum     |
++-------------+----------+
+*
+**/
+
+SELECT Day , ROUND( SUM(status) / COUNT(status),2) AS 'Cancellation Rate'
+FROM (
+    SELECT  request_at AS Day , 
+            CASE    WHEN status IN ('cancelled_by_driver' , 'cancelled_by_client') THEN 1
+                    ELSE 0
+                    END AS status
+    FROM Trips t , Users u_c , Users u_d
+    WHERE   u_c.users_id = t.client_id AND
+            u_d.users_id = t.driver_id AND
+            u_c.banned = 'No' AND
+            u_d.banned = 'No'
+) help
+WHERE Day between '2013-10-01' and '2013-10-03'
+GROUP BY Day
+ORDER BY Day ASC
+;
 
 /* pb.511 , Gameplay Analysis , Write an SQL query to report the first login date for each player.
 +--------------+---------+

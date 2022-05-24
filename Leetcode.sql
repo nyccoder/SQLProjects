@@ -182,6 +182,46 @@ IN
     GROUP BY DepartmentId
 );
 
+/*
+ * pb.185 , Department Top Three Salaries
+ * 
+ * Write an SQL query to find the employees who are high earners in each of the departments.
+ * 
+ * Table : Employee
++--------------+---------+
+| Column Name  | Type    |
++--------------+---------+
+| id           | int     |
+| name         | varchar |
+| salary       | int     |
+| departmentId | int     |
++--------------+---------+
+
+Table: Department
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| name        | varchar |
++-------------+---------+
+ */
+
+SELECT
+    d.Name AS 'Department', e1.Name AS 'Employee', e1.Salary
+FROM
+    Employee e1
+JOIN
+    Department d ON e1.DepartmentId = d.Id
+WHERE
+    3 > (SELECT COUNT(DISTINCT e2.Salary)
+	        FROM
+	            Employee e2
+	        WHERE
+	            e2.Salary > e1.Salary AND 
+	            e1.DepartmentId = e2.DepartmentId
+        )
+;
+
 -- pb.196 , Delete Duplicate email in a column
 
 /* Table: Person

@@ -114,6 +114,37 @@ WHERE
 ;
 
 /*
+ * pb 181 , Employees Earning More Than Their Managers
+ * Write an SQL query to find the employees who earn more than their managers.
+ * 
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| name        | varchar |
+| salary      | int     |
+| managerId   | int     |
++-------------+---------+
+ */
+
+SELECT e.name AS Employee
+FROM Employee e
+JOIN
+(
+    SELECT id , salary
+    FROM Employee
+    WHERE id IN
+    (
+        SELECT managerId
+        FROM Employee
+        WHERE managerId IS NOT NULL   
+    )
+) m
+WHERE   e.salary > m.salary AND
+        e.managerId = m.id
+;
+
+/*
  * -- pb.182 , Finding Duplicate in a column  
 
 +-------------+---------+
